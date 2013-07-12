@@ -77,6 +77,22 @@ namespace vle { namespace devs {
 
     class VLE_API DynamicsInit
     {
+    /*public:
+        DynamicsInit(const vpz::AtomicModel& model,
+                     PackageId packageid)
+            : m_model(model), m_packageid(packageid)
+        {}
+
+        virtual ~DynamicsInit()
+        {}
+
+        const vpz::AtomicModel& model() const { return m_model; }
+        PackageId packageid() const { return m_packageid; }
+
+    private:
+        const vpz::AtomicModel&       m_model;
+        PackageId                       m_packageid;*/
+
     public:
         DynamicsInit()
         {}
@@ -98,7 +114,8 @@ namespace vle { namespace devs {
          * @param init The initialiser of Dynamics.
          * @param events The parameter from the experimental frame.
          */
-        Dynamics(const DynamicsInit& init)
+        Dynamics(const DynamicsInit& init,
+                 const vle::devs::InitEventList&  /* events */)
             : m_model("test", NULL, "", "", "")
         {}
 

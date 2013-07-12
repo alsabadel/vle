@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE vle_project PUBLIC "-//VLE TEAM//DTD Strict//EN" "http://www.vle-project.org/vle-1.1.0.dtd">
+<vle_project version="1.0" date="2013-Jun-14 16:42:33" author="Nathalie Rousse">
+<structures>
+<model name="Top model" type="coupled" x="0" y="0" width="645" height="520"  >
+<submodels>
+<model name="OpenAlea" type="atomic" conditions="CondPyDynamics,conf_AdelCaribu" dynamics="PyDynamics" observables="obs_AdelCaribu" x="202" y="204" width="100" height="45" >
+<in>
+ <port name="In" />
+</in>
+<out>
+ <port name="Out" />
+</out>
+</model>
+<model name="Pseudo2CV" type="coupled" x="93" y="26" width="100" height="60"  >
+<in>
+ <port name="ALAI" />
+ <port name="RadPlant" />
+</in>
+<out>
+ <port name="MicroMeteo" />
+</out>
+<submodels>
+<model name="PseudoCropAGB" type="atomic" conditions="conf_PseudoCropAGB" dynamics="PseudoCropAGB" observables="obs_CropAGB" x="313" y="187" width="100" height="60" >
+<in>
+ <port name="ALAI" />
+ <port name="RadPlant" />
+</in>
+</model>
+<model name="PseudoMeteo" type="atomic" conditions="conf_PseudoMeteo" dynamics="PseudoMeteo" observables="obs_Meteo" x="57" y="48" width="100" height="45" >
+<out>
+ <port name="MicroMeteo" />
+</out>
+</model>
+</submodels>
+<connections>
+<connection type="output">
+ <origin model="PseudoMeteo" port="MicroMeteo" />
+ <destination model="Pseudo2CV" port="MicroMeteo" />
+</connection>
+<connection type="input">
+ <origin model="Pseudo2CV" port="ALAI" />
+ <destination model="PseudoCropAGB" port="ALAI" />
+</connection>
+<connection type="input">
+ <origin model="Pseudo2CV" port="RadPlant" />
+ <destination model="PseudoCropAGB" port="RadPlant" />
+</connection>
+</connections>
+</model>
+</submodels>
+<connections>
+<connection type="internal">
+ <origin model="OpenAlea" port="Out" />
+ <destination model="Pseudo2CV" port="RadPlant" />
+</connection>
+<connection type="internal">
+ <origin model="OpenAlea" port="Out" />
+ <destination model="Pseudo2CV" port="ALAI" />
+</connection>
+<connection type="internal">
+ <origin model="Pseudo2CV" port="MicroMeteo" />
+ <destination model="OpenAlea" port="In" />
+</connection>
+</connections>
+</model>
+</structures>
+<dynamics>
+<dynamic name="MyModelCppDynamic" library="MyModelCpp" package="pydynamics"  />
+<dynamic name="PseudoCropAGB" library="PseudoCropAGB" package="2CV_ADELCARIBU"  />
+<dynamic name="PseudoMeteo" library="PseudoMeteo" package="2CV_ADELCARIBU"  />
+<dynamic name="PyDynamics" library="pydynamics" package="pydynamics"  />
+</dynamics>
+<experiment name="2CV_ADELCARIBU" duration="10.000000000000000" begin="0.000000000000000" combination="linear"  >
+<conditions>
+<condition name="CondPyDynamics" >
+ <port name="delay" >
+<double>1.000000000000000</double>
+</port>
+ <port name="modelname" >
+<string>OpenAlea</string>
+</port>
+ <port name="openalea_nodename" >
+<string>composite2CV_stub</string>
+</port>
+ <port name="openalea_pkgname" >
+<string>vle</string>
+</port>
+ <port name="pkgname" >
+<string>2CV_ADELCARIBU</string>
+</port>
+</condition>
+<condition name="conf_AdelCaribu" >
+ <port name="density" >
+<integer>10</integer>
+</port>
+</condition>
+<condition name="conf_PseudoCropAGB" >
+ <port name="delay" >
+<double>1.000000000000000</double>
+</port>
+ <port name="model_name" >
+<string>PseudoCropAGB</string>
+</port>
+</condition>
+<condition name="conf_PseudoMeteo" >
+ <port name="delay" >
+<double>1.000000000000000</double>
+</port>
+ <port name="model_name" >
+<string>PseudoMeteo</string>
+</port>
+</condition>
+</conditions>
+<views>
+<outputs>
+<output name="View" location="" format="local" package="vle.output"  plugin="file" >
+<map><key name="julian-day"><boolean>false</boolean></key><key name="locale"><string>C</string></key><key name="type"><string>text</string></key></map></output>
+
+</outputs>
+<observables>
+<observable name="obs_AdelCaribu" >
+<port name="ALAI" >
+ <attachedview name="View" />
+</port>
+
+<port name="RAD_recu" >
+ <attachedview name="View" />
+</port>
+
+<port name="RadPlant" >
+ <attachedview name="View" />
+</port>
+
+<port name="TT_recu" >
+ <attachedview name="View" />
+</port>
+
+<port name="m_choix" />
+
+</observable>
+
+<observable name="obs_CropAGB" >
+<port name="ALAI_recu" >
+ <attachedview name="View" />
+</port>
+
+<port name="RadPlant_recu" >
+ <attachedview name="View" />
+</port>
+
+</observable>
+
+<observable name="obs_Meteo" >
+<port name="RAD" >
+ <attachedview name="View" />
+</port>
+
+<port name="TT" >
+ <attachedview name="View" />
+</port>
+
+<port name="m_choix" />
+
+</observable>
+
+</observables>
+<view name="View" output="View" type="timed" timestep="1.000000000000000" />
+
+</views>
+</experiment>
+</vle_project>

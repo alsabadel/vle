@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE vle_project PUBLIC "-//VLE TEAM//DTD Strict//EN" "http://www.vle-project.org/vle-1.1.0.dtd">
+<vle_project version="1.0" date="2013-Jun-14 16:42:33" author="Nathalie Rousse">
+<structures>
+<model name="Top model" type="coupled" x="0" y="0" width="468" height="330"  >
+<submodels>
+<model name="modele_B_python" type="atomic" conditions="CondAppli,CondPyDynamics" dynamics="PyDynamics" observables="obsModele_B_python" x="49" y="41" width="100" height="135" >
+<out>
+ <port name="PortA" />
+ <port name="PortB" />
+ <port name="PortC" />
+ <port name="PortD" />
+ <port name="PortE" />
+ <port name="PortF" />
+ <port name="PortG" />
+</out>
+</model>
+</submodels>
+<connections>
+</connections>
+</model>
+</structures>
+<dynamics>
+<dynamic name="PyDynamics" library="pydynamics" package="pydynamics"  />
+</dynamics>
+<experiment name="PY" duration="100.000000000000000" begin="0.000000000000000" combination="linear"  >
+<conditions>
+<condition name="CondAppli" >
+ <port name="delay" >
+<double>1.000000000000000</double>
+</port>
+</condition>
+<condition name="CondPyDynamics" >
+ <port name="modelname" >
+<string>MyModelPy</string>
+</port>
+ <port name="pkgname" >
+<string>pydynamics</string>
+</port>
+</condition>
+</conditions>
+<views>
+<outputs>
+<output name="View" location="" format="local" package="vle.output"  plugin="file" >
+<map><key name="julian-day"><boolean>false</boolean></key><key name="locale"><string>C</string></key><key name="type"><string>text</string></key></map></output>
+
+</outputs>
+<observables>
+<observable name="obsModele_B_python" >
+<port name="m_choix" >
+ <attachedview name="View" />
+</port>
+
+</observable>
+
+</observables>
+<view name="View" output="View" type="timed" timestep="1.000000000000000" />
+
+</views>
+</experiment>
+</vle_project>

@@ -2,7 +2,7 @@
 
 #******************************************************************************
 #
-# File MyModel.py
+# File MyModelPy.py
 #
 #------------------------------------------------------------------------------
 #
@@ -17,15 +17,14 @@ import convert
 
 ###############################################################################
 
-class MyModel(testDynamics.Dynamics):
+class MyModelPy(testDynamics.Dynamics):
     
-    #def __init__
     def output(self,time,events):
 
         # ecriture d'evenements dans events (external events)
 
         print "---------------------------------------------------------------"
-        print "MyModel.output : "
+        print "MyModelPy.output : "
         print ""
 
         print "********************************************"
@@ -208,40 +207,38 @@ class MyModel(testDynamics.Dynamics):
 
 ###############################################################################
 ## sans init_events
-#
-#print ""
-#print "Initialisation du Modele..."
-#modelinit = testDynamics.DynamicsInit()
-#my_model = MyModel( modelinit )
 
-#print "Creation de la liste d'evenements externes..."
-#external_events = testDynamics.ExternalEventList()
-
-#print "Appels de methodes du Modele :"
-#time = 0.0
-#my_model.init( time )
-#my_model.output(0.0, external_events)
-#my_model.externalTransition( time, external_events )
-
-###############################################################################
-## avec init_events
-#   
+print ""
+print "Initialisation du Modele..."
 modelinit = testDynamics.DynamicsInit()
-   
-print "Creation de la liste d'evenements init..."
-#init_events = testDynamics.InitEventList.create()
-init_events = dict() 
-init_events = convert.to_vlevalue(init_events) 
+my_model = MyModelPy( modelinit )
 
-# !!! remplacer my_model = MyModel( modelinit ) par :
-my_model = MyModel( modelinit, init_events )
-# !!! et dans constructeur MyModel, lire parametre dans init_events
-   
+print "Creation de la liste d'evenements externes..."
 external_events = testDynamics.ExternalEventList()
+
+print "Appels de methodes du Modele :"
 time = 0.0
 my_model.init( time )
 my_model.output(0.0, external_events)
 my_model.externalTransition( time, external_events )
+
+###############################################################################
+## avec init_events
+#   
+#   modelinit = testDynamics.DynamicsInit()
+#   
+#   print "Creation de la liste d'evenements init..."
+#   init_events = testDynamics.InitEventList.create()
+#   
+#   # !!! remplacer my_model = MyModelPy( modelinit ) par :
+#   my_model = MyModelPy( modelinit, init_events )
+#   # !!! et dans constructeur MyModelPy, lire parametre dans init_events
+#   
+#   external_events = testDynamics.ExternalEventList()
+#   time = 0.0
+#   my_model.init( time )
+#   my_model.output(0.0, external_events)
+#   my_model.externalTransition( time, external_events )
 #   
 ###############################################################################
 

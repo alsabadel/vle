@@ -1,0 +1,10 @@
+vle -P pydynamics_wrapper configure build
+vle -P pydynamics configure build
+
+   setenv LD_PRELOAD /usr/lib/libpython2.7.so
+
+vle -P pydynamics my_model_py.vpz
+vle -P pydynamics my_model_cpp.vpz
+vle -P pydynamics my_model_cpp_et_cpp.vpz
+vle -P pydynamics my_model_py_et_cpp.vpz
+

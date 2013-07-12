@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE vle_project PUBLIC "-//VLE TEAM//DTD Strict//EN" "http://www.vle-project.org/vle-1.1.0.dtd">
+<vle_project version="1.0" date="2013-Jun-14 16:42:33" author="Nathalie Rousse">
+<structures>
+<model name="Top model" type="coupled" x="0" y="0" width="624" height="627"  >
+<submodels>
+<model name="model_B_cpp_futurpython" type="atomic" conditions="configuration_B" dynamics="MyModelCppDynamic" observables="osb_B" x="201" y="205" width="100" height="90" >
+<in>
+ <port name="in" />
+ <port name="in1" />
+ <port name="in2" />
+ <port name="in3" />
+</in>
+<out>
+ <port name="out" />
+ <port name="out1" />
+ <port name="out2" />
+ <port name="out3" />
+</out>
+</model>
+<model name="model_A_cpp" type="coupled" x="93" y="26" width="100" height="90"  >
+<in>
+ <port name="in" />
+ <port name="in1" />
+ <port name="in2" />
+ <port name="in3" />
+</in>
+<out>
+ <port name="out" />
+ <port name="out1" />
+ <port name="out2" />
+ <port name="out3" />
+</out>
+<submodels>
+<model name="A1" type="atomic" conditions="configuration_A" dynamics="MyModelCppDynamic" observables="obs_A1" x="57" y="45" width="100" height="90" >
+<in>
+ <port name="in" />
+</in>
+<out>
+ <port name="out" />
+ <port name="out1" />
+ <port name="out2" />
+ <port name="out3" />
+</out>
+</model>
+<model name="A2" type="atomic" conditions="configuration_A" dynamics="MyModelCppDynamic" observables="obs_A2" x="337" y="385" width="100" height="90" >
+<in>
+ <port name="in" />
+ <port name="in1" />
+ <port name="in2" />
+ <port name="in3" />
+</in>
+<out>
+ <port name="out" />
+ <port name="out1" />
+ <port name="out2" />
+ <port name="out3" />
+</out>
+</model>
+</submodels>
+<connections>
+<connection type="output">
+ <origin model="A1" port="out" />
+ <destination model="model_A_cpp" port="out" />
+</connection>
+<connection type="output">
+ <origin model="A1" port="out1" />
+ <destination model="model_A_cpp" port="out1" />
+</connection>
+<connection type="output">
+ <origin model="A1" port="out2" />
+ <destination model="model_A_cpp" port="out2" />
+</connection>
+<connection type="output">
+ <origin model="A1" port="out3" />
+ <destination model="model_A_cpp" port="out3" />
+</connection>
+<connection type="input">
+ <origin model="model_A_cpp" port="in" />
+ <destination model="A2" port="in" />
+</connection>
+<connection type="input">
+ <origin model="model_A_cpp" port="in1" />
+ <destination model="A2" port="in1" />
+</connection>
+<connection type="input">
+ <origin model="model_A_cpp" port="in2" />
+ <destination model="A2" port="in2" />
+</connection>
+<connection type="input">
+ <origin model="model_A_cpp" port="in3" />
+ <destination model="A2" port="in3" />
+</connection>
+</connections>
+</model>
+</submodels>
+<connections>
+<connection type="internal">
+ <origin model="model_A_cpp" port="out" />
+ <destination model="model_B_cpp_futurpython" port="in" />
+</connection>
+<connection type="internal">
+ <origin model="model_A_cpp" port="out1" />
+ <destination model="model_B_cpp_futurpython" port="in1" />
+</connection>
+<connection type="internal">
+ <origin model="model_A_cpp" port="out2" />
+ <destination model="model_B_cpp_futurpython" port="in2" />
+</connection>
+<connection type="internal">
+ <origin model="model_A_cpp" port="out3" />
+ <destination model="model_B_cpp_futurpython" port="in3" />
+</connection>
+<connection type="internal">
+ <origin model="model_B_cpp_futurpython" port="out" />
+ <destination model="model_A_cpp" port="in" />
+</connection>
+<connection type="internal">
+ <origin model="model_B_cpp_futurpython" port="out1" />
+ <destination model="model_A_cpp" port="in1" />
+</connection>
+<connection type="internal">
+ <origin model="model_B_cpp_futurpython" port="out2" />
+ <destination model="model_A_cpp" port="in2" />
+</connection>
+<connection type="internal">
+ <origin model="model_B_cpp_futurpython" port="out3" />
+ <destination model="model_A_cpp" port="in3" />
+</connection>
+</connections>
+</model>
+</structures>
+<dynamics>
+<dynamic name="MyModelCppDynamic" library="MyModelCpp" package="pydynamics"  />
+</dynamics>
+<experiment name="CPPCPP" duration="100.000000000000000" begin="0.000000000000000" combination="linear"  >
+<conditions>
+<condition name="configuration_A" >
+ <port name="delay" >
+<double>4.000000000000000</double>
+</port>
+ <port name="model_name" >
+<string>modele_A_cpp</string>
+</port>
+</condition>
+<condition name="configuration_B" >
+ <port name="delay" >
+<double>3.000000000000000</double>
+</port>
+ <port name="model_name" >
+<string>modele_B_cpp</string>
+</port>
+ <port name="param_map" >
+<map><key name="un_double"><double>44.399999999999999</double></key><key name="un_integer"><integer>44</integer></key><key name="un_set"><set><double>33.299999999999997</double><integer>33</integer><string>"set_contenant_33.3et33"</string></set></key></map>
+</port>
+</condition>
+</conditions>
+<views>
+<outputs>
+<output name="View" location="" format="local" package="vle.output"  plugin="file" >
+<map><key name="julian-day"><boolean>false</boolean></key><key name="locale"><string>C</string></key><key name="type"><string>text</string></key></map></output>
+
+</outputs>
+<observables>
+<observable name="obs_A1" >
+<port name="m_choix" >
+ <attachedview name="View" />
+</port>
+
+<port name="out" />
+
+<port name="out1" />
+
+<port name="out2" />
+
+<port name="out3" />
+
+</observable>
+
+<observable name="obs_A2" />
+
+<observable name="osb_B" >
+<port name="m_choix" >
+ <attachedview name="View" />
+</port>
+
+<port name="out" />
+
+<port name="out1" />
+
+<port name="out2" />
+
+<port name="out3" />
+
+</observable>
+
+</observables>
+<view name="View" output="View" type="timed" timestep="1.000000000000000" />
+
+</views>
+</experiment>
+</vle_project>

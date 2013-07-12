@@ -1,0 +1,6 @@
+vle -P pydynamics_wrapper configure build
+vle -P pydynamics configure build
+vle -P exemple_modele_python configure build
+
+vle -P exemple_modele_python essai.vpz
+
